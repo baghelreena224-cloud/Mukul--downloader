@@ -1,8 +1,10 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template_string, request, send_file
+import yt_dlp
+import os
 
 app = Flask(__name__)
 
-# वेबसाइट का सुंदर चेहरा (UI) - यह आपके सफ़ेद पेज को बदल देगा
+# सुंदर UI जिसमें अब असली डाउनलोड का फॉर्म है
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +26,12 @@ HTML_TEMPLATE = """
 <body>
     <div class="container">
         <h1>Viral Video Downloader</h1>
-        <p>Viral Video Downloader is Live!</p>
         
-        <!-- यहाँ है वह पेस्ट बॉक्स और बटन -->
-        <input type="text" id="videoLink" placeholder="यहाँ वीडियो लिंक पेस्ट करें (URL)">
-        <button onclick="alert('डाउनलोडिंग का कोड जल्द आ रहा है!')">वीडियो डाउनलोड करें</button>
+        <!-- असली डाउनलोड फॉर्म जो बैकएंड पर लिंक भेजेगा -->
+        <form action="/download" method="POST">
+            <input type="text" name="url" placeholder="यहाँ वीडियो लिंक पेस्ट करें (URL)" required>
+            <button type="submit">वीडियो डाउनलोड करें</button>
+        </form>
         
         <div class="footer">Created with ❤️ by Mukul</div>
     </div>
@@ -38,8 +41,26 @@ HTML_TEMPLATE = """
 
 @app.route('/')
 def home():
-    # अब यह साफ़ सफ़ेद पेज नहीं, बल्कि ऊपर वाला सुंदर UI दिखाएगा
     return render_template_string(HTML_TEMPLATE)
+
+@app.route('/download', methods=['POST'])
+def download_video():
+    video_url = request.form.get('url')
+    
+    # yt-dlp की सेटिंग वीडियो डाउनलोड करने के लिए
+    ydl_opts = {
+        'format': 'best',
+        'outtmpl': 'downloaded_video.%(ext)s',
+    }
+    
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(video_url, download=True)
+            filename = ydl.prepare_filename(info_dict)
+            
+        return send_file(filename, as_attachment=True)
+    except Exception as e:
+        return f"डाउनलोड करने में एरर आया है: {str(e)}"
 
 if __name__ == '__main__':
     app.run(debug=True)
