@@ -8,7 +8,8 @@ app = Flask(__name__)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2891141547348727"
+     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viral Video Downloader</title>
