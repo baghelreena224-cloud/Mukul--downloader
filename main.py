@@ -65,3 +65,19 @@ def download_video():
 
 if __name__ == '__main__':
     app.run(debug=True)
+<!-- निर्देश और अबाउट सेक्शन -->
+<div class="content-section" style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 8px; text-align: left; color: #333;">
+    <h3>Mukul Video Downloader का उपयोग कैसे करें? (How to Use)</h3>
+    <ol>
+        <li>जिस भी वीडियो को आप डाउनलोड करना चाहते हैं, उसका लिंक (URL) यहाँ कॉपी करके पेस्ट करें।</li>
+        <li>डाउनलोड बटन पर क्लिक करें।</li>
+        <li>अपनी पसंदीदा वीडियो क्वालिटी चुनकर इसे सेव करें।</li>
+    </ol>
+    
+    <h3>हमारे बारे में (About Us)</h3>
+    <p>Mukul Downloader एक आसान और तेज ऑनलाइन टूल है जो उपयोगकर्ताओं को उनके वीडियो लिंक मैनेज करने और डाउनलोड करने में मदद करता है। यह टूल शैक्षणिक और व्यक्तिगत उपयोग के लिए बनाया गया है।</p>
+    
+    <p style="margin-top: 20px; text-align: center;">
+        <a href="/privacy-policy" style="color: #007bff; text-decoration: none;">Privacy Policy</a>
+    </p>
+</div>
